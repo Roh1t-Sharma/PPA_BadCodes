@@ -37,7 +37,7 @@ class UserProfileManager:
         else:
             print("User not found.")
 
-    # Displays all users, keeping the implementation straightforward (KISS).
+    # Displays all users, keeping the implementation straightforward (KISS)
     def display_users(self):
         for user in self.users:
             print(user)
