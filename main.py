@@ -1,36 +1,55 @@
+# UserProfile class focuses on user data, aligning with Single Responsibility Principle (SRP).
 class UserProfile:
     def __init__(self, name, email, age):
         self.name = name
         self.email = email
         self.age = age
 
-    def display_user(self):
-        print(f"Name: {self.name}, Email: {self.email}, Age: {self.age}")
+    # DRY principle applied: Consolidates updating name and email into one method.
+    # Also aligns with KISS by simplifying updates to user profiles.
+    def update_profile(self, name=None, email=None):
+        if name:
+            self.name = name
+        if email:
+            self.email = email
 
-    def update_email(self, new_email):
-        self.email = new_email
-        print("Email updated to: ", self.email)
+    # Implements a simple string representation, keeping it simple (KISS).
+    def __str__(self):
+        return f"Name: {self.name}, Email: {self.email}, Age: {self.age}"
 
-    def update_name(self, new_name):
-        self.name = new_name
-        print("Name updated to: ", self.name)
+# UserProfileManager class adheres to the SRP by handling user collection management.
+class UserProfileManager:
+    def __init__(self):
+        self.users = []  # Manages a list of UserProfile instances.
 
-# Handling user operations
-def add_user(name, email, age, users):
-    user = UserProfile(name, email, age)
-    users.append(user)
-    print(f"Added: {name}")
+    # Adds a user to the list, following KISS and YAGNI by implementing just what is necessary.
+    def add_user(self, name, email, age):
+        user = UserProfile(name, email, age)
+        self.users.append(user)
+        print(f"Added: {name}")
 
-def display_users(users):
-    for user in users:
-        user.display_user()
+    # Updates user information, adhering to DRY by reusing UserProfile's update_profile method.
+    # Also respects the OCP by allowing future extensions without modifying this method.
+    def update_user(self, index, name=None, email=None):
+        if 0 <= index < len(self.users):
+            self.users[index].update_profile(name, email)
+            print(f"User {self.users[index].name}'s profile updated.")
+        else:
+            print("User not found.")
 
-users = []
-add_user("Rohit Sharma", "Rohit@example.com", 21, users)
-add_user("User 2", "Sharma@example.com", 28, users)
+    # Displays all users, keeping the implementation straightforward (KISS).
+    def display_users(self):
+        for user in self.users:
+            print(user)
 
-# Updating user info directly
-users[0].update_email("R_Sharma@mail.com")
-users[1].update_name("Sharma Rohit")
+# Implementing the refactored code with UserProfileManager
+user_manager = UserProfileManager()
+user_manager.add_user("Rohit Sharma", "Rohit@example.com", 21)
+user_manager.add_user("User 2", "Sharma@example.com", 28)
 
-display_users(users)
+# Updating user information in a more streamlined manner (DRY & KISS).
+user_manager.update_user(0, email="R_Sharma@mail.com")
+user_manager.update_user(1, name="Sharma Rohit")
+
+# Displaying users, directly utilizing the __str__ method in UserProfile (KISS).
+user_manager.display_users()
