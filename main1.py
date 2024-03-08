@@ -20,4 +20,4 @@ def throw_Ball(position, speed):
 # Firing Balls with specific positions and speeds.
 throw_Ball(0, 1)  # Throw the first Ball from position 0 with speed 1.
 throw_Ball(2, 1)  # Throw the second Ball from position 2 with speed 1.
-throw_Ball(3, 2)
+throw_Ball(3, 2)  # Throw the third Ball from position 3 with speed 2.
