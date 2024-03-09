@@ -69,4 +69,4 @@ def throw_Ball(position, speed):
 # Simulates firing balls, demonstrating the reuse of ball objects.
 throw_Ball(0, 1)
 throw_Ball(2, 1)
-throw_Ball(4, 1) # This may reuse a ball if one has been released
+throw_Ball(4, 1) # This may reuse a ball if one has been released.
