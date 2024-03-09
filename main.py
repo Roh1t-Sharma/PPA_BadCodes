@@ -48,8 +48,9 @@ user_manager.add_user("Rohit Sharma", "Rohit@example.com", 21)
 user_manager.add_user("User 2", "Sharma@example.com", 28)
 
 # Updating user information in a more streamlined manner (DRY & KISS).
-user_manager.update_user(0, email="R_Sharma@mail.com")
-user_manager.update_user(1, name="Sharma Rohit")
+user_manager.update_user(0, email=input("Enter new email: "))
+user_manager.update_user(1, name=input("Enter new name: "))
+# user_manager.update_user(1, name="Sharma Rohit")
 
 # Displaying users, directly utilizing the __str__ method in UserProfile (KISS).
 user_manager.display_users()
