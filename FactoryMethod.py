@@ -34,14 +34,12 @@ class VehicleFactory(ABC):
 # Factory for creating Car instances
 class CarFactory(VehicleFactory):
     def create_vehicle(self):
-        # Returns an instance of Car
         return Car()
 
 
 # Factory for creating Truck instances
 class TruckFactory(VehicleFactory):
     def create_vehicle(self):
-        # Returns an instance of Truck
         return Truck()
 
 
@@ -54,7 +52,7 @@ def client_code(factory: VehicleFactory):
 
 
 if __name__ == "__main__":
-    vehicle_type = "truck"  # The type of vehicle to create
+    vehicle_type = "bike"  # The type of vehicle to create
     if vehicle_type == "car":
         factory = CarFactory()  # Create a CarFactory instance
     elif vehicle_type == "truck":
