@@ -1,42 +1,45 @@
 from abc import ABC, abstractmethod
 
 
-# Abstract base classes for Cars and Trucks
+# Abstract Product for Car
 class Car(ABC):
     @abstractmethod
     def drive(self):
         pass
 
 
+# Abstract Product for Truck
 class Truck(ABC):
     @abstractmethod
     def drive(self):
         pass
 
 
-# Concrete implementations for Electric and Gasoline Cars
+# Concrete Product for ElectricCar
 class ElectricCar(Car):
     def drive(self):
         return "Driving an electric car"
 
 
+# Concrete Product for GasolineCar
 class GasolineCar(Car):
     def drive(self):
         return "Driving a gasoline car"
 
 
-# Concrete implementations for Electric and Gasoline Trucks
+# Concrete Product for ElectricTruck
 class ElectricTruck(Truck):
     def drive(self):
         return "Driving an electric truck"
 
 
+# Concrete Product for GasolineTruck
 class GasolineTruck(Truck):
     def drive(self):
         return "Driving a gasoline truck"
 
 
-# Abstract factory class
+# Abstract Factory Interface
 class VehicleFactory(ABC):
     @abstractmethod
     def create_car(self):
@@ -47,7 +50,7 @@ class VehicleFactory(ABC):
         pass
 
 
-# Concrete factory for Electric Vehicles
+# Concrete Factory for Electric Vehicles
 class ElectricVehicleFactory(VehicleFactory):
     def create_car(self):
         return ElectricCar()
@@ -56,7 +59,7 @@ class ElectricVehicleFactory(VehicleFactory):
         return ElectricTruck()
 
 
-# Concrete factory for Gasoline Vehicles
+# Concrete Factory for Gasoline Vehicles
 class GasolineVehicleFactory(VehicleFactory):
     def create_car(self):
         return GasolineCar()
@@ -65,8 +68,9 @@ class GasolineVehicleFactory(VehicleFactory):
         return GasolineTruck()
 
 
-# Client code
+# Client code that uses the Abstract Factory
 def client_code(factory: VehicleFactory):
+    # Utilizes the factory to create abstract product instances
     car = factory.create_car()
     truck = factory.create_truck()
     print(car.drive())
@@ -74,10 +78,10 @@ def client_code(factory: VehicleFactory):
 
 
 if __name__ == "__main__":
-    factory_type = "Gasoline"  # Could be "gasoline" or "electric"
+    factory_type = "electric"  # Determines the type of factory to use
     if factory_type == "electric":
-        factory = ElectricVehicleFactory()
+        factory = ElectricVehicleFactory()  # Concrete Factory instantiation
     else:
-        factory = GasolineVehicleFactory()
+        factory = GasolineVehicleFactory()  # Alternative Concrete Factory instantiation
 
-    client_code(factory)
+    client_code(factory)  # Pass the concrete factory to the client code
