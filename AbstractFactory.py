@@ -76,7 +76,6 @@ def client_code(factory: VehicleFactory):
     print(car.drive())
     print(truck.drive())
 
-
 if __name__ == "__main__":
     factory_type = "electric"  # Determines the type of factory to use
     if factory_type == "electric":
