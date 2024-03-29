@@ -52,7 +52,7 @@ def client_code(factory: VehicleFactory):
 
 
 if __name__ == "__main__":
-    vehicle_type = "truck"  # The type of vehicle to create
+    vehicle_type = "car"  # The type of vehicle to create
     if vehicle_type == "car":
         factory = CarFactory()  # Create a CarFactory instance
     elif vehicle_type == "truck":
