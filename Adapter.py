@@ -1,4 +1,5 @@
 import json
+import requests
 
 # Adapter class to adapt local weather data to the interface expected by WeatherService
 class LocalWeatherAdapter:
@@ -34,6 +35,20 @@ class WeatherService(WeatherServiceInterface):
         # Fetch weather data using adapter
         return self.adapter.fetch_weather(city)
 
+# Decorator class to add additional functionality to the WeatherService
+class WeatherServiceDecorator(WeatherServiceInterface):
+    def __init__(self, weather_service):
+        # Initialize with the weather service to be decorated
+        self.weather_service = weather_service
+
+    def fetch_weather(self, city):
+        # Fetch weather data using the wrapped weather service
+        weather_data = self.weather_service.fetch_weather(city)
+        # Add additional functionality (decorating behavior)
+        if weather_data:
+            weather_data['description'] = f"{weather_data['description']}"
+        return weather_data
+
 def main():
     # Prompt user to choose data source
     choice = input("Enter 'api' to fetch data from API or 'file' to fetch data from a local file: ")
@@ -42,7 +57,14 @@ def main():
         # If choice is API, prompt user for city name
         city = input("Enter the city name: ")
         # Create instance of WeatherService with LocalWeatherAdapter for API
-        adapter = WeatherService(LocalWeatherAdapter("weather_data.json"))
+        url = f"https://api.weather.com/{city}"
+        response = requests.get(url)
+        # Check if request was successful
+        if response.status_code == 200:
+            return response.json()
+        else:
+            # If request failed, return None
+            return None
     elif choice == "file":
         # If choice is file, prompt user for city name
         city = input("Enter the city name: ")
@@ -53,12 +75,18 @@ def main():
         print("Invalid choice")
         return
 
-    # Fetch weather data for the entered city using the chosen adapter
-    weather_data = adapter.fetch_weather(city)
+    # Create the WeatherService object
+    weather_service = WeatherService(adapter)
+    # Decorate the WeatherService object
+    decorated_weather_service = WeatherServiceDecorator(weather_service)
+
+    # Fetch weather data for the entered city using the decorated service
+    weather_data = decorated_weather_service.fetch_weather(city)
     # Check if weather data was fetched successfully
     if weather_data:
-        # If successful, print temperature of the city
+        # If successful, print temperature and decorated description of the city
         print(f"Weather in {city}: {weather_data['temperature']}°C")
+        print(f"Description: {weather_data['description']}")
     else:
         # If failed, print error message
         print("Failed to fetch weather data")
