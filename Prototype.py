@@ -1,23 +1,9 @@
-import copy
-
-
 class Employee:
     def __init__(self, _name, _role, _department):
         self.name = _name
         self.role = _role
         self.department = _department
 
-    def clone(self):
-        return copy.copy(self)
-
-    def deepclone(self):
-        return copy.deepcopy(self)
-
-
-# Creating a prototype
-prototype = Employee("John Doe", "Manager", "IT")
-
-# List to store employees
 employees = []
 
 while True:
@@ -33,20 +19,16 @@ while True:
         role = input("Enter employee role: ")
         department = input("Enter employee department: ")
 
-        # Create a new employee by cloning the prototype
-        new_employee = prototype.clone()
-        new_employee.name = name
-        new_employee.role = role
-        new_employee.department = department
+        new_employee = Employee(name, role, department)
 
         employees.append(new_employee)
         print("\nEmployee added successfully.")
 
     elif choice == "2":
         if not employees:
-            print("\nNo employees found.")
+            print("\nNo employee found.")
         else:
-            print("Employees:")
+            print("\nEmployees:")
             for employee in employees:
                 print(f"\nName: {employee.name}, Role: {employee.role}, Department: {employee.department}")
 
@@ -55,4 +37,4 @@ while True:
         break
 
     else:
-        print("\nInvalid choice. Please try again.")
+        print("\n Invalid choice. Please try again.")
