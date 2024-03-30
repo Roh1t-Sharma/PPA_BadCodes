@@ -1,0 +1,17 @@
+{
+  "Alwar": {
+    "temperature": 25,
+    "humidity": 60,
+    "description": "Partly cloudy"
+  },
+  "Moscow": {
+    "temperature": 28,
+    "humidity": 55,
+    "description": "Sunny"
+  },
+  "Delhi": {
+    "temperature": 26,
+    "humidity": 65,
+    "description": "Rainy"
+  }
+}
