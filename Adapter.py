@@ -1,6 +1,7 @@
 import json
 import requests
 
+
 # Adapter class to adapt local weather data to the interface expected by WeatherService
 class LocalWeatherAdapter:
     def __init__(self, filename):
@@ -20,10 +21,12 @@ class LocalWeatherAdapter:
                 # If not exists, return None
                 return None
 
+
 # Interface for the WeatherService class
 class WeatherServiceInterface:
     def fetch_weather(self, city):
         pass
+
 
 # WeatherService class implementing the WeatherServiceInterface
 class WeatherService(WeatherServiceInterface):
@@ -34,6 +37,7 @@ class WeatherService(WeatherServiceInterface):
     def fetch_weather(self, city):
         # Fetch weather data using adapter
         return self.adapter.fetch_weather(city)
+
 
 # Decorator class to add additional functionality to the WeatherService
 class WeatherServiceDecorator(WeatherServiceInterface):
@@ -48,6 +52,7 @@ class WeatherServiceDecorator(WeatherServiceInterface):
         if weather_data:
             weather_data['description'] = f"{weather_data['description']}"
         return weather_data
+
 
 def main():
     # Prompt user to choose data source
@@ -90,6 +95,7 @@ def main():
     else:
         # If failed, print error message
         print("Failed to fetch weather data")
+
 
 if __name__ == "__main__":
     main()
