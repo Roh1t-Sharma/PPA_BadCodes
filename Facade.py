@@ -1,32 +1,63 @@
 class CustomerDataSystem:
-    def add_customer(self, customer_details):
+    @staticmethod
+    def add_customer(customer_details):
         print(f"Adding new customer: {customer_details['name']}")
-        # More complex logic to add customer to the database.
+        return customer_details  # Assume it returns customer info including an ID
+
 
 class MarketingAutomationSystem:
-    def send_welcome_email(self, email):
+    @staticmethod
+    def send_welcome_email(email):
         print(f"We've sent a Welcome mail to you on {email}")
-        # Code to integrate with email service providers.
+
 
 class SalesReportingSystem:
+    def __init__(self):
+        # This could be a more complex database interaction in a real scenario
+        self.sales_data = {
+            'FCD3489': {'description': 'High-end Laptop', 'potential_revenue': 1200},
+            'FCD6723': {'description': 'Professional Camera', 'potential_revenue': 1500}
+        }
+
     def generate_initial_sales_report(self, customer_id):
         print(f"Generating initial sales report for customer ID {customer_id}")
-        # Code to generate and return sales report.
+        # Simulating fetching customer interests based on initial data collection
+        customer_interests = ['FCD3489', 'FCD6723']  # This would be dynamic in a real scenario
+        report = {}
+        for sku in customer_interests:
+            item = self.sales_data.get(sku, {})
+            report[sku] = {
+                'product': item.get('description', 'N/A'),
+                'potential_revenue': item.get('potential_revenue', 0)
+            }
+        return report
 
-# Client code
+
+# Example of integrating the enhanced SalesReportingSystem into the CRMFacade
+class CRMFacade:
+    def __init__(self):
+        self.customer_data = CustomerDataSystem()
+        self.marketing = MarketingAutomationSystem()
+        self.sales_reporting = SalesReportingSystem()
+
+    def onboard_new_customer(self, name, email):
+        customer_details = {'name': name, 'email': email}
+        customer_info = self.customer_data.add_customer(customer_details)
+        self.marketing.send_welcome_email(email)
+        report = self.sales_reporting.generate_initial_sales_report(customer_info['name'])
+        print("Sales Report Generated:")
+        for sku, details in report.items():
+            print(f"Product: {details['product']}, Potential Revenue: ${details['potential_revenue']}")
+
+
+# Main function remains the same
 def main():
     customer_name = input("Enter customer name: ")
     customer_email = input("Enter customer email: ")
 
-    customer_data = CustomerDataSystem()
-    marketing = MarketingAutomationSystem()
-    sales_reporting = SalesReportingSystem()
+    crm_facade = CRMFacade()
+    crm_facade.onboard_new_customer(customer_name, customer_email)
 
-    # Direct interaction with multiple subsystems
-    customer_details = {'name': customer_name, 'email': customer_email}
-    customer_data.add_customer(customer_details)
-    marketing.send_welcome_email(customer_email)
-    sales_reporting.generate_initial_sales_report(customer_details['name'])  # Simplified customer ID usage
 
 if __name__ == "__main__":
     main()
