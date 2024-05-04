@@ -12,11 +12,10 @@ class MarketingAutomationSystem:
 
 
 class SalesReportingSystem:
-    def __init__(self):
-        # This could be a more complex database interaction in a real scenario
+    def __init__(self):  # Sample data, it could be more complex database interaction in a real use case
         self.sales_data = {
-            'FCD3489': {'description': 'High-end Laptop', 'potential_revenue': 1200},
-            'FCD6723': {'description': 'Professional Camera', 'potential_revenue': 1500}
+            'FCD3489': {'description': 'MacBook Pro', 'potential_revenue': 20000},
+            'FCD6723': {'description': 'Sony Alpha 9 III ', 'potential_revenue': 60000}
         }
 
     def generate_initial_sales_report(self, customer_id):
@@ -47,7 +46,7 @@ class CRMFacade:
         report = self.sales_reporting.generate_initial_sales_report(customer_info['name'])
         print("Sales Report Generated:")
         for sku, details in report.items():
-            print(f"Product: {details['product']}, Potential Revenue: ${details['potential_revenue']}")
+            print(f"Product: {details['product']}, Potential Revenue: Rub.{details['potential_revenue']}")
 
 
 # Main function remains the same
@@ -61,4 +60,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
